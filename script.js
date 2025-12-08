@@ -5,23 +5,32 @@ document.addEventListener('DOMContentLoaded', function() {
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            // 獲取表單數據
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            
-            // 簡單的表單驗證
-            if (name.trim() === '' || email.trim() === '' || message.trim() === '') {
+
+            // Gather form data
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (!name || !email || !message) {
                 alert('請填寫所有必填欄位');
                 return;
             }
-            
-            // 顯示成功訊息（實際應用中應發送到服務器）
-            alert(`感謝 ${name}！我們已收到您的訊息，將盡快回覆您。`);
-            
-            // 重置表單
-            contactForm.reset();
+
+            // Build mailto URL to open the user's email client with prefilled content
+            const to = '414570136@m365.fju.edu.tw';
+            const subject = encodeURIComponent(`Website Contact from ${name}`);
+            const bodyLines = [
+                `Name: ${name}`,
+                `Sender Email: ${email}`,
+                '',
+                'Message:',
+                message
+            ];
+            const body = encodeURIComponent(bodyLines.join('\n'));
+            const mailto = `mailto:${to}?subject=${subject}&body=${body}`;
+
+            // Try to open mail client. This will hand off to user's mail app.
+            window.location.href = mailto;
         });
     }
 });
@@ -43,6 +52,51 @@ document.querySelectorAll('nav a').forEach(link => {
             }
         }
     });
+});
+
+// Scrollspy: highlight nav link for current section
+document.addEventListener('DOMContentLoaded', function() {
+    const navLinks = Array.from(document.querySelectorAll('nav a'))
+        .filter(a => a.getAttribute('href') && a.getAttribute('href').startsWith('#'));
+    const sections = navLinks
+        .map(a => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+
+    if (!sections.length) return;
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '-40% 0px -40% 0px',
+        threshold: 0
+    };
+
+    const onIntersect = (entries) => {
+        entries.forEach(entry => {
+            const id = entry.target.id;
+            const link = document.querySelector(`nav a[href="#${id}"]`);
+            if (!link) return;
+            if (entry.isIntersecting) {
+                // Only update when active section changed to avoid repeated history updates
+                if (window.__lastActiveSection !== id) {
+                    window.__lastActiveSection = id;
+                    navLinks.forEach(a => a.classList.remove('active'));
+                    navLinks.forEach(a => a.removeAttribute('aria-current'));
+                    link.classList.add('active');
+                    link.setAttribute('aria-current', 'true');
+                    // Sync URL hash without adding extra history entries
+                    try {
+                        history.replaceState(null, '', `#${id}`);
+                    } catch (e) {
+                        // fallback to direct hash change if replaceState is not available
+                        location.hash = `#${id}`;
+                    }
+                }
+            }
+        });
+    };
+
+    const observer = new IntersectionObserver(onIntersect, observerOptions);
+    sections.forEach(sec => observer.observe(sec));
 });
 
 // 在頁面底部添加返回頂部按鈕（當用戶滾動時）
@@ -115,4 +169,65 @@ document.addEventListener('DOMContentLoaded', function() {
     if (footerText) {
         footerText.innerHTML = `&copy; ${currentYear} 你的名字. 版權所有。`;
     }
+});
+
+// --- 技能標籤過濾互動 ---
+document.addEventListener('DOMContentLoaded', function() {
+    const tags = Array.from(document.querySelectorAll('.skills-tags .tag'));
+    const categories = Array.from(document.querySelectorAll('.skill-category'));
+
+    if (!tags.length || !categories.length) return;
+
+    function clearFilter() {
+        tags.forEach(t => {
+            t.setAttribute('aria-pressed', 'false');
+            t.classList.remove('active');
+        });
+        categories.forEach(c => {
+            c.classList.remove('category-dim');
+            c.classList.remove('category-highlight');
+        });
+    }
+
+    function applyFilter(tagText, tagEl) {
+        let matched = false;
+        categories.forEach(cat => {
+            const txt = cat.innerText || '';
+            if (txt.includes(tagText)) {
+                cat.classList.add('category-highlight');
+                cat.classList.remove('category-dim');
+                matched = true;
+            } else {
+                cat.classList.add('category-dim');
+                cat.classList.remove('category-highlight');
+            }
+        });
+
+        // If nothing matched, don't dim everything — just flash the container
+        if (!matched) {
+            categories.forEach(c => c.classList.remove('category-dim'));
+        }
+    }
+
+    tags.forEach(tag => {
+        // ensure aria-pressed exists
+        tag.setAttribute('aria-pressed', 'false');
+
+        tag.addEventListener('click', function(e) {
+            e.preventDefault();
+            const isPressed = this.getAttribute('aria-pressed') === 'true';
+            if (isPressed) {
+                clearFilter();
+                return;
+            }
+            clearFilter();
+            const text = this.textContent.trim();
+            this.setAttribute('aria-pressed', 'true');
+            this.classList.add('active');
+            applyFilter(text, this);
+            // scroll matched into view if exists
+            const firstMatch = document.querySelector('.skill-category.category-highlight');
+            if (firstMatch) firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    });
 });
