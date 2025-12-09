@@ -483,13 +483,13 @@ body {
 }
 
 .contact-item a {
-    color: var(--white);
+    color: var(--accent-pink);
     text-decoration: none;
-    transition: opacity 0.3s ease;
+    transition: color 0.3s ease;
 }
 
 .contact-item a:hover {
-    opacity: 0.8;
+    color: var(--primary-color);
     text-decoration: underline;
 }
 
