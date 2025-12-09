@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const tags = document.querySelectorAll('.tag');
     const categories = document.querySelectorAll('.skill-category');
 
+    console.log('Tags found:', tags.length);
+    console.log('Categories found:', categories.length);
+
     function clearFilter() {
         tags.forEach(tag => {
             tag.setAttribute('aria-pressed', 'false');
@@ -15,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function applyFilter(text, activeTag) {
+        console.log('Applying filter for:', text);
         let matched = false;
         categories.forEach(cat => {
             const listItems = cat.querySelectorAll('li');
@@ -26,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             if (hasMatch) {
                 matched = true;
+                console.log('Card matched:', cat.querySelector('h3').textContent);
                 cat.classList.add('category-highlight');
                 cat.classList.remove('category-dim');
             } else {
@@ -36,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // If nothing matched, don't dim everything
         if (!matched) {
+            console.log('No matches found');
             categories.forEach(c => c.classList.remove('category-dim'));
         }
     }
@@ -45,8 +51,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         tag.addEventListener('click', function(e) {
             e.preventDefault();
+            console.log('Tag clicked:', this.textContent.trim());
             const isPressed = this.getAttribute('aria-pressed') === 'true';
             if (isPressed) {
+                console.log('Clearing filter');
                 clearFilter();
                 return;
             }
