@@ -48,21 +48,12 @@
         </div>
     </section>
 
-    <!-- 技能 區塊 - 標籤雲版本 -->
+    <!-- 技能 區塊 -->
     <section id="skills" class="section skills">
         <div class="container">
             <h2>技能</h2>
             
-            <!-- 技能分類過濾器 -->
-            <div class="skill-filters">
-                <button class="filter-btn active" data-filter="all" aria-pressed="true">全部技能</button>
-                <button class="filter-btn" data-filter="programming" aria-pressed="false">程式語言</button>
-                <button class="filter-btn" data-filter="administrative" aria-pressed="false">文書行政</button>
-                <button class="filter-btn" data-filter="languages" aria-pressed="false">語言</button>
-                <button class="filter-btn" data-filter="other" aria-pressed="false">其他</button>
-            </div>
-
-            <!-- 技能標籤雲 -->
+            <!-- 技能標籤雲（上方） -->
             <div class="skills-cloud">
                 <!-- 程式語言 -->
                 <span class="skill-tag" data-category="programming">Java</span>
@@ -87,9 +78,9 @@
                 <span class="skill-tag" data-category="other">專案管理</span>
             </div>
 
-            <!-- 傳統技能分類列表 -->
+            <!-- 技能分類卡片（下方） -->
             <div class="skills-grid">
-                <div class="skill-category">
+                <div class="skill-category" data-keywords="Java,C++,Python">
                     <h3>程式語言（Programming）</h3>
                     <ul>
                         <li>Java</li>
@@ -97,7 +88,7 @@
                         <li>Python</li>
                     </ul>
                 </div>
-                <div class="skill-category">
+                <div class="skill-category" data-keywords="活動紀錄,會議記錄,簡報製作,資料彙整">
                     <h3>文書與行政技能（Administrative Skills）</h3>
                     <ul>
                         <li>活動紀錄與會議記錄整理</li>
@@ -106,7 +97,7 @@
                         <li>活動問題追蹤與回饋撰寫</li>
                     </ul>
                 </div>
-                <div class="skill-category">
+                <div class="skill-category" data-keywords="中文,英文,韓文">
                     <h3>語言（Languages）</h3>
                     <ul>
                         <li>中文</li>
@@ -114,7 +105,7 @@
                         <li>韓文</li>
                     </ul>
                 </div>
-                <div class="skill-category">
+                <div class="skill-category" data-keywords="團隊合作,問題解決,溝通能力,專案管理">
                     <h3>其他技能</h3>
                     <ul>
                         <li>團隊合作</li>

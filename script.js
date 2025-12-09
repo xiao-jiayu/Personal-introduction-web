@@ -1,53 +1,52 @@
-// 技能雲過濾功能
+// 技能標籤點選互動功能
 document.addEventListener('DOMContentLoaded', function() {
-    const filterBtns = document.querySelectorAll('.filter-btn');
     const skillTags = document.querySelectorAll('.skill-tag');
+    const skillCategories = document.querySelectorAll('.skill-category');
 
-    if (filterBtns.length > 0 && skillTags.length > 0) {
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const filter = this.getAttribute('data-filter');
+    if (skillTags.length > 0 && skillCategories.length > 0) {
+        skillTags.forEach(tag => {
+            tag.addEventListener('click', function(e) {
+                e.preventDefault();
+                const category = this.getAttribute('data-category');
+                const isActive = this.classList.contains('active');
 
-                // Update button active state
-                filterBtns.forEach(b => {
-                    b.classList.remove('active');
-                    b.setAttribute('aria-pressed', 'false');
-                });
-                this.classList.add('active');
-                this.setAttribute('aria-pressed', 'true');
+                // Toggle active state
+                if (isActive) {
+                    // Clear all
+                    skillTags.forEach(t => t.classList.remove('active'));
+                    skillCategories.forEach(c => {
+                        c.classList.remove('category-dim');
+                        c.classList.remove('category-highlight');
+                    });
+                } else {
+                    // Clear previous
+                    skillTags.forEach(t => t.classList.remove('active'));
+                    skillCategories.forEach(c => {
+                        c.classList.remove('category-dim');
+                        c.classList.remove('category-highlight');
+                    });
 
-                // Filter skill tags
-                skillTags.forEach(tag => {
-                    const category = tag.getAttribute('data-category');
-                    if (filter === 'all' || category === filter) {
-                        tag.classList.remove('hidden');
-                        // Add animation
-                        tag.style.animation = 'none';
-                        setTimeout(() => {
-                            tag.style.animation = 'fadeIn 0.4s ease-out';
-                        }, 10);
-                    } else {
-                        tag.classList.add('hidden');
-                    }
-                });
+                    // Highlight matching tags and cards
+                    this.classList.add('active');
+                    skillTags.forEach(t => {
+                        if (t.getAttribute('data-category') === category) {
+                            t.classList.add('active');
+                        }
+                    });
+
+                    // Apply filter to cards
+                    skillCategories.forEach(c => {
+                        const keywords = c.getAttribute('data-keywords');
+                        if (keywords && keywords.includes(this.textContent.trim())) {
+                            c.classList.add('category-highlight');
+                        } else {
+                            c.classList.add('category-dim');
+                        }
+                    });
+                }
             });
         });
-
-        // Add animation styles
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeIn {
-                from {
-                    opacity: 0;
-                    transform: scale(0.8);
-                }
-                to {
-                    opacity: 1;
-                    transform: scale(1);
-                }
-            }
-        `;
-        document.head.appendChild(style);
+    }
     }
 });
 
