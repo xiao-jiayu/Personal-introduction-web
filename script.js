@@ -203,10 +203,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// 捲動時隱藏/顯示 header
+// 捲動時隱藏/顯示 header（手機版 <= 768px）
 document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('.header');
     if (!header) return;
+
+    // 只在手機版 (max-width: 768px) 啟用捲動隱藏
+    const isMobile = () => window.innerWidth <= 768;
 
     header.classList.add('show-header');
 
@@ -214,6 +217,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let ticking = false;
 
     function handleScroll() {
+        if (!isMobile()) return; // 桌面版不處理
+        
         const currentY = window.scrollY;
         const delta = currentY - lastY;
 
@@ -233,6 +238,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!ticking) {
             window.requestAnimationFrame(handleScroll);
             ticking = true;
+        }
+    });
+
+    // 視窗大小改變時重置狀態
+    window.addEventListener('resize', function() {
+        if (!isMobile()) {
+            header.classList.remove('hide-header');
+            header.classList.add('show-header');
         }
     });
 });
