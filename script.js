@@ -1,56 +1,64 @@
-// 技能標籤點選互動功能
+// 技能標籤篩選功能
 document.addEventListener('DOMContentLoaded', function() {
-    const skillTags = document.querySelectorAll('.skill-tag');
-    const skillCategories = document.querySelectorAll('.skill-category');
+    const tags = document.querySelectorAll('.tag');
+    const categories = document.querySelectorAll('.skill-category');
 
-    if (skillTags.length > 0 && skillCategories.length > 0) {
-        skillTags.forEach(tag => {
-            tag.addEventListener('click', function(e) {
-                e.preventDefault();
-                const tagCategory = this.getAttribute('data-category');
-                const isActive = this.classList.contains('active');
-
-                // Toggle active state
-                if (isActive) {
-                    // Clear all
-                    skillTags.forEach(t => t.classList.remove('active'));
-                    skillCategories.forEach(c => {
-                        c.classList.remove('category-dim');
-                        c.classList.remove('category-highlight');
-                    });
-                } else {
-                    // Clear previous
-                    skillTags.forEach(t => t.classList.remove('active'));
-                    skillCategories.forEach(c => {
-                        c.classList.remove('category-dim');
-                        c.classList.remove('category-highlight');
-                    });
-
-                    // Highlight matching tags
-                    this.classList.add('active');
-                    skillTags.forEach(t => {
-                        if (t.getAttribute('data-category') === tagCategory) {
-                            t.classList.add('active');
-                        }
-                    });
-
-                    // Apply filter to cards based on category match
-                    skillCategories.forEach(c => {
-                        // Check if this card's category matches the selected tag's category
-                        const keywords = c.getAttribute('data-keywords');
-                        const cardMatches = keywords && keywords.split(',').some(k => k.trim() === this.textContent.trim());
-                        
-                        if (cardMatches) {
-                            c.classList.add('category-highlight');
-                        } else {
-                            c.classList.add('category-dim');
-                        }
-                    });
-                }
-            });
+    function clearFilter() {
+        tags.forEach(tag => {
+            tag.setAttribute('aria-pressed', 'false');
+            tag.classList.remove('active');
+        });
+        categories.forEach(cat => {
+            cat.classList.remove('category-dim');
+            cat.classList.remove('category-highlight');
         });
     }
+
+    function applyFilter(text, activeTag) {
+        let matched = false;
+        categories.forEach(cat => {
+            const listItems = cat.querySelectorAll('li');
+            let hasMatch = false;
+            listItems.forEach(li => {
+                if (li.textContent.toLowerCase().includes(text.toLowerCase())) {
+                    hasMatch = true;
+                }
+            });
+            if (hasMatch) {
+                matched = true;
+                cat.classList.add('category-highlight');
+                cat.classList.remove('category-dim');
+            } else {
+                cat.classList.add('category-dim');
+                cat.classList.remove('category-highlight');
+            }
+        });
+
+        // If nothing matched, don't dim everything
+        if (!matched) {
+            categories.forEach(c => c.classList.remove('category-dim'));
+        }
     }
+
+    tags.forEach(tag => {
+        tag.setAttribute('aria-pressed', 'false');
+
+        tag.addEventListener('click', function(e) {
+            e.preventDefault();
+            const isPressed = this.getAttribute('aria-pressed') === 'true';
+            if (isPressed) {
+                clearFilter();
+                return;
+            }
+            clearFilter();
+            const text = this.textContent.trim();
+            this.setAttribute('aria-pressed', 'true');
+            this.classList.add('active');
+            applyFilter(text, this);
+            const firstMatch = document.querySelector('.skill-category.category-highlight');
+            if (firstMatch) firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    });
 });
 
 // 聯絡表單提交處理
