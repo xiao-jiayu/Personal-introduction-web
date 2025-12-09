@@ -203,34 +203,38 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// 響應式導航菜單（用於小螢幕）
-function setupMobileNavigation() {
-    const nav = document.querySelector('.nav');
-    if (!nav) return;
-    
-    // 檢查是否已經添加了移動菜單按鈕
-    if (document.querySelector('.mobile-menu-btn')) return;
-    
-    const btn = document.createElement('button');
-    btn.className = 'mobile-menu-btn';
-    btn.innerHTML = '☰';
-    
-    nav.parentElement.insertBefore(btn, nav);
-    
-    btn.addEventListener('click', function() {
-        nav.classList.toggle('active');
-    });
-}
+// 捲動時隱藏/顯示 header
+document.addEventListener('DOMContentLoaded', function() {
+    const header = document.querySelector('.header');
+    if (!header) return;
 
-// 在適當的時機設置移動導航
-if (window.innerWidth < 768) {
-    setupMobileNavigation();
-}
+    header.classList.add('show-header');
 
-window.addEventListener('resize', function() {
-    if (window.innerWidth < 768) {
-        setupMobileNavigation();
+    let lastY = window.scrollY;
+    let ticking = false;
+
+    function handleScroll() {
+        const currentY = window.scrollY;
+        const delta = currentY - lastY;
+
+        if (delta > 6 && currentY > 20) {
+            header.classList.add('hide-header');
+            header.classList.remove('show-header');
+        } else if (delta < -6) {
+            header.classList.add('show-header');
+            header.classList.remove('hide-header');
+        }
+
+        lastY = currentY;
+        ticking = false;
     }
+
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            window.requestAnimationFrame(handleScroll);
+            ticking = true;
+        }
+    });
 });
 
 // 日期更新（Footer 的年份）
