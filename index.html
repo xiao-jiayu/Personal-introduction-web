@@ -48,10 +48,46 @@
         </div>
     </section>
 
-    <!-- 技能 區塊 -->
+    <!-- 技能 區塊 - 標籤雲版本 -->
     <section id="skills" class="section skills">
         <div class="container">
             <h2>技能</h2>
+            
+            <!-- 技能分類過濾器 -->
+            <div class="skill-filters">
+                <button class="filter-btn active" data-filter="all" aria-pressed="true">全部技能</button>
+                <button class="filter-btn" data-filter="programming" aria-pressed="false">程式語言</button>
+                <button class="filter-btn" data-filter="administrative" aria-pressed="false">文書行政</button>
+                <button class="filter-btn" data-filter="languages" aria-pressed="false">語言</button>
+                <button class="filter-btn" data-filter="other" aria-pressed="false">其他</button>
+            </div>
+
+            <!-- 技能標籤雲 -->
+            <div class="skills-cloud">
+                <!-- 程式語言 -->
+                <span class="skill-tag" data-category="programming">Java</span>
+                <span class="skill-tag" data-category="programming">C++</span>
+                <span class="skill-tag" data-category="programming">Python</span>
+                
+                <!-- 文書行政 -->
+                <span class="skill-tag" data-category="administrative">活動紀錄</span>
+                <span class="skill-tag" data-category="administrative">會議記錄</span>
+                <span class="skill-tag" data-category="administrative">簡報製作</span>
+                <span class="skill-tag" data-category="administrative">資料彙整</span>
+                
+                <!-- 語言 -->
+                <span class="skill-tag" data-category="languages">中文</span>
+                <span class="skill-tag" data-category="languages">英文</span>
+                <span class="skill-tag" data-category="languages">韓文</span>
+                
+                <!-- 其他 -->
+                <span class="skill-tag" data-category="other">團隊合作</span>
+                <span class="skill-tag" data-category="other">問題解決</span>
+                <span class="skill-tag" data-category="other">溝通能力</span>
+                <span class="skill-tag" data-category="other">專案管理</span>
+            </div>
+
+            <!-- 傳統技能分類列表 -->
             <div class="skills-grid">
                 <div class="skill-category">
                     <h3>程式語言（Programming）</h3>
@@ -86,23 +122,6 @@
                         <li>溝通能力</li>
                         <li>專案管理</li>
                     </ul>
-                </div>
-            </div>
-
-            <!-- 技能標籤示例：使用 .skills-tags 與 .tag（改為可點擊連結並加入 aria） -->
-            <div class="skills-tags-wrapper">
-                <h3 class="skills-tags-title">技能標籤</h3>
-                <div class="skills-tags">
-                    <a class="tag" href="#" role="link" aria-label="技能: Java">Java</a>
-                    <a class="tag" href="#" role="link" aria-label="技能: C++">C++</a>
-                    <a class="tag" href="#" role="link" aria-label="技能: Python">Python</a>
-                    <a class="tag" href="#" role="link" aria-label="技能: 簡報製作">簡報製作</a>
-                    <a class="tag" href="#" role="link" aria-label="技能: 記錄整理">記錄整理</a>
-                    <a class="tag" href="#" role="link" aria-label="技能: 資料彙整">資料彙整</a>
-                    <a class="tag" href="#" role="link" aria-label="技能: 中文">中文</a>
-                    <a class="tag" href="#" role="link" aria-label="技能: 英文">英文</a>
-                    <a class="tag" href="#" role="link" aria-label="技能: 韓文">韓文</a>
-                    <a class="tag" href="#" role="link" aria-label="技能: 團隊合作">團隊合作</a>
                 </div>
             </div>
         </div>
