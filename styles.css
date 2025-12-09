@@ -483,13 +483,16 @@ body {
 }
 
 .contact-item a {
-    color: var(--accent-pink);
+    color: var(--accent-green);
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
-.contact-item a:hover {
+.contact-item a:active {
     color: var(--primary-color);
+}
+
+.contact-item a:hover {
     text-decoration: underline;
 }
 
