@@ -1,3 +1,56 @@
+// 技能雲過濾功能
+document.addEventListener('DOMContentLoaded', function() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const skillTags = document.querySelectorAll('.skill-tag');
+
+    if (filterBtns.length > 0 && skillTags.length > 0) {
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+
+                // Update button active state
+                filterBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-pressed', 'false');
+                });
+                this.classList.add('active');
+                this.setAttribute('aria-pressed', 'true');
+
+                // Filter skill tags
+                skillTags.forEach(tag => {
+                    const category = tag.getAttribute('data-category');
+                    if (filter === 'all' || category === filter) {
+                        tag.classList.remove('hidden');
+                        // Add animation
+                        tag.style.animation = 'none';
+                        setTimeout(() => {
+                            tag.style.animation = 'fadeIn 0.4s ease-out';
+                        }, 10);
+                    } else {
+                        tag.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // Add animation styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: scale(0.8);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+});
+
 // 聯絡表單提交處理
 document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.querySelector('.contact-form');
