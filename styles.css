@@ -531,15 +531,19 @@ body {
 
 /* Filter / Highlight styles for skill-category when selecting tags */
 .skill-category.category-dim {
-    opacity: 0.18;
-    transform: scale(0.995);
+    opacity: 0.25 !important;
+    transform: scale(0.98) !important;
     pointer-events: none;
+    transition: all 0.3s ease;
 }
 
 .skill-category.category-highlight {
-    opacity: 1;
-    transform: translateY(-6px);
-    box-shadow: 0 32px 90px rgba(16,24,40,0.08);
+    opacity: 1 !important;
+    transform: translateY(-8px) !important;
+    box-shadow: 0 32px 90px rgba(112,182,208,0.2) !important;
+    background: linear-gradient(135deg, rgba(112,182,208,0.03) 0%, rgba(96,143,118,0.03) 100%);
+    border: 1px solid rgba(112,182,208,0.15);
+    transition: all 0.3s ease;
 }
 
 .tag[aria-pressed="true"] {
