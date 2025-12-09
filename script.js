@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         skillTags.forEach(tag => {
             tag.addEventListener('click', function(e) {
                 e.preventDefault();
-                const category = this.getAttribute('data-category');
+                const tagCategory = this.getAttribute('data-category');
                 const isActive = this.classList.contains('active');
 
                 // Toggle active state
@@ -26,18 +26,21 @@ document.addEventListener('DOMContentLoaded', function() {
                         c.classList.remove('category-highlight');
                     });
 
-                    // Highlight matching tags and cards
+                    // Highlight matching tags
                     this.classList.add('active');
                     skillTags.forEach(t => {
-                        if (t.getAttribute('data-category') === category) {
+                        if (t.getAttribute('data-category') === tagCategory) {
                             t.classList.add('active');
                         }
                     });
 
-                    // Apply filter to cards
+                    // Apply filter to cards based on category match
                     skillCategories.forEach(c => {
+                        // Check if this card's category matches the selected tag's category
                         const keywords = c.getAttribute('data-keywords');
-                        if (keywords && keywords.includes(this.textContent.trim())) {
+                        const cardMatches = keywords && keywords.split(',').some(k => k.trim() === this.textContent.trim());
+                        
+                        if (cardMatches) {
                             c.classList.add('category-highlight');
                         } else {
                             c.classList.add('category-dim');
