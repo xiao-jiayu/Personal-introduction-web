@@ -48,61 +48,124 @@
         </div>
     </section>
 
-    <!-- 技能 區塊 -->
+    <!-- 技能 區塊 - 進度條版本 -->
     <section id="skills" class="section skills">
         <div class="container">
             <h2>技能</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>1. 程式語言（Programming）</h3>
-                    <ul>
-                        <li>Java</li>
-                        <li>C / C++</li>
-                        <li>Python</li>
-                    </ul>
+            
+            <div class="skills-bars-wrapper">
+                <div class="skill-bar-category">
+                    <h3>程式語言（Programming）</h3>
+                    <div class="skill-bar-item">
+                        <label>Java</label>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%;"></div>
+                        </div>
+                        <span class="skill-level">85%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                        <label>C / C++</label>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%;"></div>
+                        </div>
+                        <span class="skill-level">75%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                        <label>Python</label>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%;"></div>
+                        </div>
+                        <span class="skill-level">80%</span>
+                    </div>
                 </div>
-                <div class="skill-category">
-                    <h3>2. 文書與行政技能（Administrative Skills）</h3>
-                    <ul>
-                        <li>活動紀錄與會議記錄整理</li>
-                        <li>資料彙整與摘要能力</li>
-                        <li>簡報製作</li>
-                        <li>活動問題追蹤與回饋撰寫</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3>3. 語言（Languages）</h3>
-                    <ul>
-                        <li>中文</li>
-                        <li>英文</li>
-                        <li>韓文</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3>4. 其他技能</h3>
-                    <ul>
-                        <li>團隊合作</li>
-                        <li>問題解決</li>
-                        <li>溝通能力</li>
-                        <li>專案管理</li>
-                    </ul>
-                </div>
-            </div>
 
-            <!-- 技能標籤示例：使用 .skills-tags 與 .tag（改為可點擊連結並加入 aria） -->
-            <div class="skills-tags-wrapper">
-                <h3 class="skills-tags-title">技能標籤</h3>
-                <div class="skills-tags">
-                    <a class="tag" href="#" role="link" aria-label="技能: Java">Java</a>
-                    <a class="tag" href="#" role="link" aria-label="技能: C++">C++</a>
-                    <a class="tag" href="#" role="link" aria-label="技能: Python">Python</a>
-                    <a class="tag" href="#" role="link" aria-label="技能: 簡報製作">簡報製作</a>
-                    <a class="tag" href="#" role="link" aria-label="技能: 記錄整理">記錄整理</a>
-                    <a class="tag" href="#" role="link" aria-label="技能: 資料彙整">資料彙整</a>
-                    <a class="tag" href="#" role="link" aria-label="技能: 中文">中文</a>
-                    <a class="tag" href="#" role="link" aria-label="技能: 英文">英文</a>
-                    <a class="tag" href="#" role="link" aria-label="技能: 韓文">韓文</a>
-                    <a class="tag" href="#" role="link" aria-label="技能: 團隊合作">團隊合作</a>
+                <div class="skill-bar-category">
+                    <h3>文書與行政技能（Administrative）</h3>
+                    <div class="skill-bar-item">
+                        <label>活動紀錄與會議記錄整理</label>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%;"></div>
+                        </div>
+                        <span class="skill-level">90%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                        <label>資料彙整與摘要能力</label>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 88%;"></div>
+                        </div>
+                        <span class="skill-level">88%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                        <label>簡報製作</label>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%;"></div>
+                        </div>
+                        <span class="skill-level">85%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                        <label>活動問題追蹤與回饋撰寫</label>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 82%;"></div>
+                        </div>
+                        <span class="skill-level">82%</span>
+                    </div>
+                </div>
+
+                <div class="skill-bar-category">
+                    <h3>語言（Languages）</h3>
+                    <div class="skill-bar-item">
+                        <label>中文</label>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 100%;"></div>
+                        </div>
+                        <span class="skill-level">100%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                        <label>英文</label>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 70%;"></div>
+                        </div>
+                        <span class="skill-level">70%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                        <label>韓文</label>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 65%;"></div>
+                        </div>
+                        <span class="skill-level">65%</span>
+                    </div>
+                </div>
+
+                <div class="skill-bar-category">
+                    <h3>其他技能</h3>
+                    <div class="skill-bar-item">
+                        <label>團隊合作</label>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%;"></div>
+                        </div>
+                        <span class="skill-level">90%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                        <label>問題解決</label>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%;"></div>
+                        </div>
+                        <span class="skill-level">85%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                        <label>溝通能力</label>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 88%;"></div>
+                        </div>
+                        <span class="skill-level">88%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                        <label>專案管理</label>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%;"></div>
+                        </div>
+                        <span class="skill-level">80%</span>
+                    </div>
                 </div>
             </div>
         </div>
