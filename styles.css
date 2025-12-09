@@ -488,11 +488,8 @@ body {
     transition: color 0.3s ease;
 }
 
-.contact-item a:active {
-    color: var(--primary-color);
-}
-
 .contact-item a:hover {
+    color: var(--primary-color);
     text-decoration: underline;
 }
 
