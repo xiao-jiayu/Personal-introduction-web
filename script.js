@@ -1,10 +1,10 @@
 // 技能標籤篩選功能
 document.addEventListener('DOMContentLoaded', function() {
-    const tags = document.querySelectorAll('.tag');
+    const tags = document.querySelectorAll('.skills-tags .tag');
     const categories = document.querySelectorAll('.skill-category');
 
-    console.log('Tags found:', tags.length);
-    console.log('Categories found:', categories.length);
+    console.log('Skill tags found:', tags.length);
+    console.log('Skill categories found:', categories.length);
 
     function clearFilter() {
         tags.forEach(tag => {
@@ -17,16 +17,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function applyFilter(text, activeTag) {
+    function applyFilter(text) {
         console.log('Applying filter for:', text);
         let matched = false;
+        const needle = text.toLowerCase();
         categories.forEach(cat => {
             const listItems = cat.querySelectorAll('li');
             let hasMatch = false;
             listItems.forEach(li => {
-                if (li.textContent.toLowerCase().includes(text.toLowerCase())) {
-                    hasMatch = true;
-                }
+                const hay = li.textContent.toLowerCase().trim();
+                if (hay.includes(needle)) hasMatch = true;
             });
             if (hasMatch) {
                 matched = true;
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const text = this.textContent.trim();
             this.setAttribute('aria-pressed', 'true');
             this.classList.add('active');
-            applyFilter(text, this);
+            applyFilter(text);
             const firstMatch = document.querySelector('.skill-category.category-highlight');
             if (firstMatch) firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
@@ -242,63 +242,3 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// --- 技能標籤過濾互動 ---
-document.addEventListener('DOMContentLoaded', function() {
-    const tags = Array.from(document.querySelectorAll('.skills-tags .tag'));
-    const categories = Array.from(document.querySelectorAll('.skill-category'));
-
-    if (!tags.length || !categories.length) return;
-
-    function clearFilter() {
-        tags.forEach(t => {
-            t.setAttribute('aria-pressed', 'false');
-            t.classList.remove('active');
-        });
-        categories.forEach(c => {
-            c.classList.remove('category-dim');
-            c.classList.remove('category-highlight');
-        });
-    }
-
-    function applyFilter(tagText, tagEl) {
-        let matched = false;
-        categories.forEach(cat => {
-            const txt = cat.innerText || '';
-            if (txt.includes(tagText)) {
-                cat.classList.add('category-highlight');
-                cat.classList.remove('category-dim');
-                matched = true;
-            } else {
-                cat.classList.add('category-dim');
-                cat.classList.remove('category-highlight');
-            }
-        });
-
-        // If nothing matched, don't dim everything — just flash the container
-        if (!matched) {
-            categories.forEach(c => c.classList.remove('category-dim'));
-        }
-    }
-
-    tags.forEach(tag => {
-        // ensure aria-pressed exists
-        tag.setAttribute('aria-pressed', 'false');
-
-        tag.addEventListener('click', function(e) {
-            e.preventDefault();
-            const isPressed = this.getAttribute('aria-pressed') === 'true';
-            if (isPressed) {
-                clearFilter();
-                return;
-            }
-            clearFilter();
-            const text = this.textContent.trim();
-            this.setAttribute('aria-pressed', 'true');
-            this.classList.add('active');
-            applyFilter(text, this);
-            // scroll matched into view if exists
-            const firstMatch = document.querySelector('.skill-category.category-highlight');
-            if (firstMatch) firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
-    });
-});
